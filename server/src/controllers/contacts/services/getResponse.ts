@@ -47,11 +47,14 @@ const validateParams = (
 const getContact = (req: express.Request) => {
   const { email, number } = req.body;
 
-  const contact = data.find(
-    (contact) => contact.email === email && contact.number === Number(number)
-  );
+  const contact = data.filter((contact) => {
+    if (number) {
+      return contact.email === email && contact.number === Number(number);
+    }
+    return contact.email === email;
+  });
 
-  if (contact) {
+  if (contact[0].email) {
     return { contact };
   }
 };

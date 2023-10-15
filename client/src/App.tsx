@@ -25,9 +25,17 @@ function App() {
     setIsLoading((prev) => prev + 1);
     const response = await getContact({ number, email });
 
-    if (response.contact) {
-      setMessage(`Email: ${response.contact.email}
-			Номер: ${formatNumber(response.contact.number)}`);
+    if (response.contacts) {
+      setMessage(
+        response.contacts.reduce(
+          (acc, contact) =>
+            acc +
+            `Email: ${contact.email}\nНомер: ${formatNumber(
+              contact.number
+            )}\n\n`,
+          ''
+        )
+      );
     }
 
     if (response.error) {

@@ -9,7 +9,7 @@ router.post(
   '',
   cancelPreviousRequestMiddleware,
   body('email').isEmail().withMessage('Не верный email'),
-  body('number')
+  body('number').optional()
     .isInt()
     .withMessage('Необходимо ввести число')
     .isLength({ min: 6, max: 6 })
